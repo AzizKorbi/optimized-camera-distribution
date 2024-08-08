@@ -1,7 +1,8 @@
 import os
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request#, redirect, url_for
 from . import app
 from .image_processing import load_image, apply_canny_edge_detection, find_contours, draw_contours, annotate_key_areas, overlay_camera_fov
+from .camera_placement import find_best_camera_placement
 import cv2
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -44,3 +45,16 @@ def upload_image():
                                    fov_image='fov_' + image_file.filename)
 
     return render_template('upload.html')
+
+
+
+@app.route('/camera-placement', methods=['GET', 'POST'])
+def camera_placement():
+    if request.method == 'POST':
+        num_cameras = int(request.form['num_cameras'])
+        camera_specs = request.form['camera_specs']
+        processed_image = request.form['processed_image']
+        # Process the input data and calculate optimal placements
+        camera_positions = find_best_camera_placement(num_cameras, camera_specs, processed_image)
+        return render_template('camera_placement_result.html', camera_positions=camera_positions)
+    return render_template('camera_placement.html')
