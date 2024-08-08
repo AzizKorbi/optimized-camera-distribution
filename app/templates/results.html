@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processed Image Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f2f2f2;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        img {
+            max-width: 80%;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Processing Results</h1>
+    
+    <h2>Original Image</h2>
+    <img src="{{ url_for('static', filename='uploads/' + original) }}" alt="Original Image">
+
+    <h2>Contour Detection</h2>
+    <img src="{{ url_for('static', filename='uploads/' + contour_image) }}" alt="Contour Image">
+
+    <h2>Annotated Key Areas</h2>
+    <img src="{{ url_for('static', filename='uploads/' + annotated_image) }}" alt="Annotated Image">
+
+    <h2>Camera FOV Overlay</h2>
+    <img src="{{ url_for('static', filename='uploads/' + fov_image) }}" alt="Camera FOV Overlay">
+</body>
+</html>
